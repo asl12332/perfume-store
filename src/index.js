@@ -16,9 +16,11 @@ async function setupDatabase() {
     const bcrypt = require('bcryptjs');
     const hashed = await bcrypt.hash('admin123', 10);
     await pool.query(`INSERT INTO users (name, email, password, role) VALUES ('المدير', 'admin@perfume.com', $1, 'admin') ON CONFLICT (email) DO NOTHING;`, [hashed]);
+    const existing = await pool.query('SELECT COUNT(*) FROM products');
+if (parseInt(existing.rows[0].count) === 0) {
     await pool.query(`INSERT INTO categories (name, name_ar) VALUES ('Men', 'رجالي'), ('Women', 'نسائي'), ('Unisex', 'للجنسين'), ('Oud', 'عود') ON CONFLICT DO NOTHING;`);
     await pool.query(`INSERT INTO products (name, name_ar, description, price, stock, category_id, brand, volume_ml, is_featured) VALUES ('Royal Oud', 'رويال عود', 'عطر عود ملكي', 450.00, 50, 4, 'Arabian Oud', 100, true), ('Rose Noir', 'روز نوار', 'عطر ورد', 320.00, 30, 2, 'Maison', 75, true), ('Blue Ocean', 'بلو أوشن', 'عطر منعش', 280.00, 45, 1, 'Azzaro', 100, false), ('Saffron Dreams', 'أحلام الزعفران', 'زعفران وعنبر', 520.00, 20, 3, 'Lattafa', 100, true) ON CONFLICT DO NOTHING;`);
-    console.log('✅ قاعدة البيانات جاهزة');
+ } console.log('✅ قاعدة البيانات جاهزة');
   } catch (err) { console.error('خطأ:', err.message); }
 }
 app.use(express.json());
