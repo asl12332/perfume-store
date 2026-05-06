@@ -307,7 +307,10 @@ nav{background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);border-bottom:1px 
 <script>
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 async function addToCart(id){
-  ${user ? `const r=await fetch('/store/cart/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:id,quantity:1})});const d=await r.json();if(d.success)showToast('✅ تم الإضافة إلى السلة');else showToast('❌ حدث خطأ');` : `showToast('يرجى تسجيل الدخول');setTimeout(()=>location.href='/auth/login',1500);`}
+  const r=await fetch('/store/cart/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:id,quantity:1})});
+  const d=await r.json();
+  if(d.success)showToast('✅ تم الإضافة إلى السلة');
+  else showToast('❌ حدث خطأ');
 }
 </script>
 </body>
