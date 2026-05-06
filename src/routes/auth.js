@@ -273,9 +273,7 @@ input::placeholder { color: rgba(255,255,255,0.25); }
       </div>
       <button type="submit" class="btn">دخول ← </button>
     </form>
-    <div class="admin-hint">
-      حساب الإدارة: <span>admin@perfume.com</span> / <span>admin123</span>
-    </div>
+    
   </div>
 </div>
 <script>
